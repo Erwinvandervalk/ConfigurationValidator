@@ -1,8 +1,10 @@
 name: Build
 
 on:
-  pull_request:
+  push:
     branches: [ main ]
+    tags:
+      - v*
 
 jobs:
   build:
@@ -28,3 +30,13 @@ jobs:
 
     - name: Test
       run: dotnet test --no-build --verbosity normal
+
+    - name: Pack
+      run: dotnet pack --configuration Release --output .    
+
+    - name: Push
+      run: |
+        file=$(find . -type f -name "*.nupkg")
+        dotnet nuget push $file --source https://api.nuget.org/v3/index.json --api-key ${NUGET_TOKEN}
+      env:
+        NUGET_TOKEN: ${{ secrets.NUGET_TOKEN }}
