@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="utf-8"?>
+<Project>
+  <PropertyGroup>
+    <Authors>Erwin van der Valk</Authors>
+    <PackageProjectUrl>https://github.com/erwinvandervalk/ConfigurationValidator</PackageProjectUrl>
+    <GenerateDocumentationFile>true</GenerateDocumentationFile>
+    <BUILD_NUMBER Condition="'$(BUILD_NUMBER)' == ''">0</BUILD_NUMBER>
+    <MinVerBuildMetadata>build.$(BUILD_NUMBER)</MinVerBuildMetadata>
+    <DebugType>portable</DebugType>
+    <PublishRepositoryUrl>true</PublishRepositoryUrl>
+    <MinVerMinimumMajorMinor>0.1</MinVerMinimumMajorMinor>
+	  <NoWarn>1591</NoWarn>
+    <MinVerTagPrefix>v</MinVerTagPrefix>
+    <Description>This library is an extension for Microsoft.Extensions.Configuration, which helps you to validate your 
+    configuration settings
+    </Description>
+  </PropertyGroup>
+    <ItemGroup>
+    <PackageReference Include="MinVer" Version="2.3.0" PrivateAssets="All" />
+  </ItemGroup>
+  <Target Name="MyTarget" AfterTargets="MinVer">
+    <PropertyGroup>
+      <!-- Main branch builds  -->
+      <MinVerPreRelease Condition="'$(SOURCE_BRANCH)' == 'refs/heads/main' AND '$(MinVerPreRelease)' != ''" >-$(MinVerPreRelease)+$(BUILD_NUMBER)</MinVerPreRelease>
+
+      <!-- Pull request builds -->
+      <MinVerPreRelease Condition="'$(SOURCE_BRANCH)' != 'refs/heads/main' AND '$(MinVerPreRelease)' != ''" >-$(MinVerPreRelease).build-$(BUILD_NUMBER)</MinVerPreRelease>
+      <PackageVersion>$(MinVerMajor).$(MinVerMinor).$(MinVerPatch)$(MinVerPreRelease)</PackageVersion>
+      <AssemblyVersion>$(MinVerMajor).$(MinVerMinor).$(MinVerPatch).$(BUILD_NUMBER)</AssemblyVersion>  
+      <FileVersion>$(MinVerMajor).$(MinVerMinor).$(MinVerPatch).$(BUILD_NUMBER)</FileVersion>
+    </PropertyGroup>
+  </Target>  
+</Project>
