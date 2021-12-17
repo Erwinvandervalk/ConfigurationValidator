@@ -4,8 +4,8 @@
     <Authors>Erwin van der Valk</Authors>
     <PackageProjectUrl>https://github.com/erwinvandervalk/ConfigurationValidator</PackageProjectUrl>
     <GenerateDocumentationFile>true</GenerateDocumentationFile>
-    <BUILD_NUMBER Condition="'$(BUILD_NUMBER)' == ''">0</BUILD_NUMBER>
-    <MinVerBuildMetadata>build.$(BUILD_NUMBER)</MinVerBuildMetadata>
+    <BUILD_NUMBER Condition="'$(GITHUB_RUN_NUMBER)' == ''">0</BUILD_NUMBER>
+    <MinVerBuildMetadata>build.$(GITHUB_RUN_NUMBER)</MinVerBuildMetadata>
     <DebugType>portable</DebugType>
     <PublishRepositoryUrl>true</PublishRepositoryUrl>
     <MinVerMinimumMajorMinor>0.1</MinVerMinimumMajorMinor>
