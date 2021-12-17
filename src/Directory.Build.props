@@ -5,7 +5,6 @@
     <PackageProjectUrl>https://github.com/erwinvandervalk/ConfigurationValidator</PackageProjectUrl>
     <GenerateDocumentationFile>true</GenerateDocumentationFile>
     <BUILD_NUMBER Condition="'$(GITHUB_RUN_NUMBER)' == ''">0</BUILD_NUMBER>
-    <MinVerBuildMetadata>build.$(GITHUB_RUN_NUMBER)</MinVerBuildMetadata>
     <DebugType>portable</DebugType>
     <PublishRepositoryUrl>true</PublishRepositoryUrl>
     <MinVerMinimumMajorMinor>0.1</MinVerMinimumMajorMinor>
@@ -16,18 +15,6 @@
     </Description>
   </PropertyGroup>
     <ItemGroup>
-    <PackageReference Include="MinVer" Version="2.3.0" PrivateAssets="All" />
+    <PackageReference Include="MinVer" Version="2.5.0" PrivateAssets="All" />
   </ItemGroup>
-  <Target Name="MyTarget" AfterTargets="MinVer">
-    <PropertyGroup>
-      <!-- Main branch builds  -->
-      <MinVerPreRelease Condition="'$(SOURCE_BRANCH)' == 'refs/heads/main' AND '$(MinVerPreRelease)' != ''" >-$(MinVerPreRelease)+$(BUILD_NUMBER)</MinVerPreRelease>
-
-      <!-- Pull request builds -->
-      <MinVerPreRelease Condition="'$(SOURCE_BRANCH)' != 'refs/heads/main' AND '$(MinVerPreRelease)' != ''" >-$(MinVerPreRelease).build-$(BUILD_NUMBER)</MinVerPreRelease>
-      <PackageVersion>$(MinVerMajor).$(MinVerMinor).$(MinVerPatch)$(MinVerPreRelease)</PackageVersion>
-      <AssemblyVersion>$(MinVerMajor).$(MinVerMinor).$(MinVerPatch).$(BUILD_NUMBER)</AssemblyVersion>  
-      <FileVersion>$(MinVerMajor).$(MinVerMinor).$(MinVerPatch).$(BUILD_NUMBER)</FileVersion>
-    </PropertyGroup>
-  </Target>  
 </Project>
