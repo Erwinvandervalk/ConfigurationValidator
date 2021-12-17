@@ -1,0 +1,2 @@
+﻿ - ExampleValue = "value" - from (MemoryConfigurationProvider)
+ - Sub:SubValue = "value" - from (MemoryConfigurationProvider)
