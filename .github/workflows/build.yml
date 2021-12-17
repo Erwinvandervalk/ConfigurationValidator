@@ -10,7 +10,8 @@ jobs:
   build:
 
     runs-on: ubuntu-latest
-
+    env: 
+      BUILD_NUMBER: ${{GITHUB_RUN_NUMBER}}
     steps:
     - uses: actions/checkout@v2
     - name: Setup .NET
@@ -24,7 +25,7 @@ jobs:
 
     - name: Build
       run: dotnet build --no-restore
-      
+
     - name: Test
       run: dotnet test --no-build --verbosity normal
 
